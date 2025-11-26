@@ -1,87 +1,117 @@
-# Ex.No:4(D) DESIGN PATTERN -- ABSTRACT FACTORY
+# Ex.No:4(E) DESIGN PATTERN  ---- BEHAVIOUR PATTERN
 
 ## QUESTION:
-Create a program that sends different types of notifications: "email", "sms", and "push". Use the Factory Pattern to generate the appropriate notification sender and call its notifyUser() method.
+Create an Article class where changes to the content are saved as mementos. Let the user view and restore any saved version.
 
 ## AIM:
-To implement the Factory Design Pattern to send different types of notifications — Email, SMS, and Push.
+To implement the Memento Design Pattern that allows saving and restoring versions of an Article object.
 
 ## ALGORITHM :
-1.	Create a Notification interface with the method notifyUser().
-2.	Implement this interface in classes EmailNotification, SMSNotification, and PushNotification.
-3.	Create a NotificationFactory class to generate objects based on input type.
-4.	In main(), read the notification type and get the corresponding object from the factory.
-5.	Call the notifyUser() method to send the notification.
-
-
-
-
+1.	Create ArticleMemento to store article content (state).
+2.	Create Article (Originator) that can write, save, and restore content.
+3.	Create VersionHistory (Caretaker) to store multiple mementos.
+4.	Allow the user to:
+5.	Write new content
+6.	Save current version
+7.	View all saved versions
+8.	Restore any version
+9.	Display restored version content.
 
 ## PROGRAM:
  ```
 /*
-Program to implement a Abstract Factory Pattern using Java
+Program to implement a Behaviour Pattern using Java
 Developed by: LATHISH KANNA M
-Register Number: 212222230073
+Register Number:212222230073
 */
 ```
 
 ## SOURCE CODE:
-```java
-import java.util.Scanner;
+```
 
-// Notification interface
-interface Notification {
-    void notifyUser();
-}
+import java.util.*;
 
-// Concrete notifications
-class EmailNotification implements Notification {
-    public void notifyUser() {
-        System.out.println("Sending Email Notification");
+class Article {
+    private String content;
+
+    public Article(String content) {
+        this.content = content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    // Save current state to memento
+    public ArticleMemento save() {
+        return new ArticleMemento(content);
+    }
+
+    // Restore state from memento
+    public void restore(ArticleMemento memento) {
+        this.content = memento.getContent();
     }
 }
 
-class SMSNotification implements Notification {
-    public void notifyUser() {
-        System.out.println("Sending SMS Notification");
+class ArticleMemento {
+    private final String content;
+
+    public ArticleMemento(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
     }
 }
 
-class PushNotification implements Notification {
-    public void notifyUser() {
-        System.out.println("Sending Push Notification");
-    }
-}
+class ArticleHistory {
+    private List<ArticleMemento> versions = new ArrayList<>();
 
-// Factory class
-class NotificationFactory {
-    public Notification createNotification(String type) {
-        switch(type.toLowerCase()) {
-            case "email": return new EmailNotification();
-            case "sms": return new SMSNotification();
-            case "push": return new PushNotification();
-            default: return null;
+    public void saveVersion(Article article) {
+        versions.add(article.save());
+    }
+
+    public ArticleMemento getVersion(int index) {
+        if (index >= 0 && index < versions.size()) {
+            return versions.get(index);
         }
+        return null;
+    }
+
+    public List<ArticleMemento> getAllVersions() {
+        return versions;
     }
 }
 
-// Main class
-public class Main {
+public class ArticleManager {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        NotificationFactory factory = new NotificationFactory();
-        
-        while(true) {
-            String input = sc.nextLine();
-            if(input.equalsIgnoreCase("exit")) break;
 
-            Notification notification = factory.createNotification(input);
-            if(notification != null) {
-                notification.notifyUser();
-            } else {
-                System.out.println("Invalid notification type: " + input);
-            }
+        // Read number of versions
+        int n = Integer.parseInt(sc.nextLine());
+        ArticleHistory history = new ArticleHistory();
+        Article article = new Article("");
+
+        // Read and save each version
+        for (int i = 0; i < n; i++) {
+            String content = sc.nextLine();
+            article.setContent(content);
+            history.saveVersion(article);
+        }
+
+        // Read version index to restore (0-based)
+        int restoreIndex = Integer.parseInt(sc.nextLine());
+        ArticleMemento memento = history.getVersion(restoreIndex);
+        if (memento != null) {
+            article.restore(memento);
+            System.out.println(article.getContent());
+        } else {
+            System.out.println("Invalid version");
         }
 
         sc.close();
@@ -90,19 +120,13 @@ public class Main {
 
 ```
 
-
-
-
-
-
 ## OUTPUT:
-<img width="1284" height="374" alt="image" src="https://github.com/user-attachments/assets/ea1d8e4c-e2a0-40dc-ac41-02cd410c4c07" />
+<img width="1240" height="593" alt="image" src="https://github.com/user-attachments/assets/1011ef9f-2030-4cf0-af05-89f76ddb4b89" />
 
 
 
 ## RESULT:
-The program successfully creates and sends the appropriate type of notification using the Factory Pattern.
-
+The program successfully demonstrates the Memento Pattern, allowing the user to save, view, and restore different versions of an article.
 
 
 
