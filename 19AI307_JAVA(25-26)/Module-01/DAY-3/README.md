@@ -41,11 +41,11 @@ To write a Java program that reads an integer and reverses its digits using a wh
 
 ## PROGRAM:
  ```
-/*
+
 Program to implement a Looping Statement using Java
 Developed by: LATHISH KANNA M
 RegisterNumber:  212222230073
-*/
+
 ```
 
 ## SOURCE CODE:
@@ -88,6 +88,7 @@ public class ReverseNumber {
 ## RESULT:
 
 The program successfully reverses the input number and prints the result.
+
 
 
 
