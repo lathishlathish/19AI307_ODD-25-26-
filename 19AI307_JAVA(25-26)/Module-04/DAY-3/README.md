@@ -64,8 +64,8 @@ Register the flight and display total registered flights.
  ```
 /*
 Program to implement a Composition Concepts in Java
-Developed by: GREFFINA SANCHEZ P
-RegisterNumber:  212222040048
+Developed by: LATHISH KANNA M
+RegisterNumber:  212222230073
 */
 ```
 
@@ -124,5 +124,6 @@ public class prog {
 ## RESULT:
 
 The program successfully demonstrates the Singleton pattern, ensuring only one Radar Control Tower instance exists and all flights register through it, maintaining consistent flight tracking.
+
 
 
