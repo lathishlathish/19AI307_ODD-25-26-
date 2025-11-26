@@ -1,33 +1,17 @@
 # Ex.No:4(D) DESIGN PATTERN -- ABSTRACT FACTORY
 
 ## QUESTION:
-Create a system that builds Car and Bike objects for two companies: "Honda" and "Yamaha". Use Abstract Factory Pattern to choose the brand and output the type and brand for each vehicle.
-
-For example:
-
-Input	Result
-honda
-Honda Car created
-Honda Bike created
-
-
+Create a program that sends different types of notifications: "email", "sms", and "push". Use the Factory Pattern to generate the appropriate notification sender and call its notifyUser() method.
 
 ## AIM:
-To create a Java program using the Abstract Factory Pattern to generate Car and Bike objects for two brands: Honda and Yamaha.
-
+To implement the Factory Design Pattern to send different types of notifications — Email, SMS, and Push.
 
 ## ALGORITHM :
-1.	Start the program.
-2.	Import the necessary package 'java.util'
-3.	Create interfaces Car and Bike with assemble() method.
-4.	Create concrete classes-HondaCar, HondaBike,YamahaCar, YamahaBike
-5. Create VehicleFactory interface with createCar() and createBike().
-6. Create concrete factories:HondaFactory,YamahaFactory.
-7. Read input brand name from user.
-8. Based on the brand, create the corresponding factory.
-9. Use the factory to create Car and Bike objects.
-10. Print the assembled vehicle messages.
-11. End the program.
+1.	Create a Notification interface with the method notifyUser().
+2.	Implement this interface in classes EmailNotification, SMSNotification, and PushNotification.
+3.	Create a NotificationFactory class to generate objects based on input type.
+4.	In main(), read the notification type and get the corresponding object from the factory.
+5.	Call the notifyUser() method to send the notification.
 
 
 
@@ -38,65 +22,69 @@ To create a Java program using the Abstract Factory Pattern to generate Car and 
 /*
 Program to implement a Abstract Factory Pattern using Java
 Developed by: LATHISH KANNA M
-RegisterNumber:  212222230073
+Register Number: 212222230073
 */
 ```
 
 ## SOURCE CODE:
-
-```
+```java
 import java.util.Scanner;
 
-interface Car {
-    void assemble();
-}
-interface Bike {
-    void assemble();
+// Notification interface
+interface Notification {
+    void notifyUser();
 }
 
-class HondaCar implements Car {
-    public void assemble() { System.out.println("Honda Car created"); }
-}
-class YamahaCar implements Car {
-    public void assemble() { System.out.println("Yamaha Car created"); }
-}
-class HondaBike implements Bike {
-    public void assemble() { System.out.println("Honda Bike created"); }
-}
-class YamahaBike implements Bike {
-    public void assemble() { System.out.println("Yamaha Bike created"); }
+// Concrete notifications
+class EmailNotification implements Notification {
+    public void notifyUser() {
+        System.out.println("Sending Email Notification");
+    }
 }
 
-interface VehicleFactory {
-    Car createCar();
-    Bike createBike();
+class SMSNotification implements Notification {
+    public void notifyUser() {
+        System.out.println("Sending SMS Notification");
+    }
 }
 
-class HondaFactory implements VehicleFactory {
-    public Car createCar() { return new HondaCar(); }
-    public Bike createBike() { return new HondaBike(); }
+class PushNotification implements Notification {
+    public void notifyUser() {
+        System.out.println("Sending Push Notification");
+    }
 }
 
-class YamahaFactory implements VehicleFactory {
-    public Car createCar() { return new YamahaCar(); }
-    public Bike createBike() { return new YamahaBike(); }
+// Factory class
+class NotificationFactory {
+    public Notification createNotification(String type) {
+        switch(type.toLowerCase()) {
+            case "email": return new EmailNotification();
+            case "sms": return new SMSNotification();
+            case "push": return new PushNotification();
+            default: return null;
+        }
+    }
 }
 
+// Main class
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String brand = scanner.nextLine().toLowerCase();
+        Scanner sc = new Scanner(System.in);
+        NotificationFactory factory = new NotificationFactory();
+        
+        while(true) {
+            String input = sc.nextLine();
+            if(input.equalsIgnoreCase("exit")) break;
 
-        VehicleFactory factory;
-        if (brand.equals("honda")) factory = new HondaFactory();
-        else if (brand.equals("yamaha")) factory = new YamahaFactory();
-        else {
-            System.out.println("Invalid company");
-            return;
+            Notification notification = factory.createNotification(input);
+            if(notification != null) {
+                notification.notifyUser();
+            } else {
+                System.out.println("Invalid notification type: " + input);
+            }
         }
 
-        factory.createCar().assemble();
-        factory.createBike().assemble();
+        sc.close();
     }
 }
 
@@ -105,12 +93,15 @@ public class Main {
 
 
 
+
+
 ## OUTPUT:
+<img width="1284" height="374" alt="image" src="https://github.com/user-attachments/assets/ea1d8e4c-e2a0-40dc-ac41-02cd410c4c07" />
 
 
 
 ## RESULT:
+The program successfully creates and sends the appropriate type of notification using the Factory Pattern.
 
-Thus, the program successfully implements the Abstract Factory Pattern and creates Car and Bike objects for the chosen brand.
 
 
