@@ -22,11 +22,11 @@ To write a Java program that reads a string and prints its reverse.
 
 ## PROGRAM:
  ```
-/*
+
 Program to implement a Strings and Math Function using Java
 Developed by: LATHISH KANNA M
 RegisterNumber:  212222230073
-*/
+
 ```
 
 ## SOURCE CODE:
@@ -62,5 +62,6 @@ public class ReverseString {
 ## RESULT:
 
 The program successfully reverses the given string and displays the result.
+
 
 
