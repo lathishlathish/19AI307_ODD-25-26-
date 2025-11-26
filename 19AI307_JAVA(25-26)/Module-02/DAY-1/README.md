@@ -30,8 +30,8 @@ To write a Java program that demonstrates calling a static method and a non-stat
  ```
 /*
 Program to implement a Methods using Java
-Developed by: GREFFINA SANCHEZ P
-RegisterNumber:  212222040048
+Developed by: LATHISH KANNA M
+RegisterNumber:  212222230073
 */
 ```
 
@@ -74,5 +74,6 @@ public class MyClass {
 ## RESULT:
 
 The program successfully calls both static and non-static methods and displays the expected output.
+
 
 
